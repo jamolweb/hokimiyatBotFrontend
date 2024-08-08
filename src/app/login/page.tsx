@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useSetRecoilState } from 'recoil'
-import { isAuthenticatedState } from '../../lib/auth'
+import { isAuthenticatedState } from '../../../lib/auth'
 
 const LoginPage = () => {
 	const router = useRouter()
