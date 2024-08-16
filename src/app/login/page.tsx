@@ -1,5 +1,6 @@
 'use client'
 
+import $api from '@/api/axios'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { toast, ToastContainer } from 'react-toastify'
@@ -14,13 +15,17 @@ const LoginPage = () => {
 	const [password, setPassword] = useState('')
 
 	const handleLogin = () => {
-		if (username === 'admin' && password === 'password') {
-			setIsAuthenticated(true)
-			toast.success('Login successful')
-			router.push('/admin')
-		} else {
-			toast.error('Invalid credentials')
-		}
+		$api
+			.post('/auth/login', { username, password })
+			.then(response => {
+				setIsAuthenticated(true)
+				toast.success('Login successful')
+				router.push('/admin')
+				localStorage.setItem('token', response.data.token)
+			})
+			.catch(err => {
+				toast.error('Invalid credentials')
+			})
 	}
 
 	return (
